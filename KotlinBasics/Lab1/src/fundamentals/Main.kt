@@ -59,5 +59,5 @@ fun fel3(szam : Int){
     }
 }
 fun fel4(msg : String){
-    Base64.getEncoder().encode(msg)
+
 }
