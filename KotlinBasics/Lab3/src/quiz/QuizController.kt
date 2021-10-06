@@ -20,7 +20,7 @@ class QuizController {
         var helyesValasz = 0
         for(i in 0..numberOfQuestions){
             println("Question ${i+1}:")
-            println(questions[0].text)
+            println(questions[i].text)
             var answers = questions[i].answers
             var helyesValaszStr =answers[0]
             answers = answers.shuffled()
