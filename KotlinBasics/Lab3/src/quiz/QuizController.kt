@@ -35,9 +35,10 @@ class QuizController {
                 "b"->if(answers[1]==helyesValaszStr) ++helyesValasz
                 "c"->if(answers[2]==helyesValaszStr) ++helyesValasz
                 "d"->if(answers[3]==helyesValaszStr) ++helyesValasz
+                else -> println("Nincs ilyen lehetoseg")
             }
         }
-        println("Helyes valaszok: $helyesValasz")
+        println("$helyesValasz/$numberOfQuestions")
     }
     fun randomizeQuestions(){
         questions.shuffle()
