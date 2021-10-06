@@ -19,11 +19,11 @@ class QuizController {
         randomizeQuestions()
         var helyesValasz = 0
         for(i in 0..numberOfQuestions){
-            println("Question $i:")
+            println("Question ${i+1}:")
             println(questions[0].text)
-            val answers = questions[i].answers
+            var answers = questions[i].answers
             var helyesValaszStr =answers[0]
-            answers.shuffled()
+            answers = answers.shuffled()
             var j=0
             for (ch in 'a'..'d'){
                 println("$ch. ${answers[j]}")
