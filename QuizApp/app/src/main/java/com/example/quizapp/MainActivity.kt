@@ -22,11 +22,41 @@ class MainActivity : AppCompatActivity() {
     }
     private fun registerListeners(){
         startButton.setOnClickListener(){
-            Toast.makeText(applicationContext,"Click",Toast.LENGTH_SHORT)
-            Log.v("TAG",playerName.textContent)
+            //Toast.makeText(applicationContext,"Click",Toast.LENGTH_SHORT)
+            Log.i("TAG",playerName.toString())
+
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG,"onsStart()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG,"onResume()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG,"onPause()")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG,"onStop()")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG,"onDestroy()")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i(TAG,"onRestart()")
+    }
     private fun initializeView(){
         playerName = findViewById(R.id.playerNameInput)
         startButton = findViewById(R.id.startButton)
