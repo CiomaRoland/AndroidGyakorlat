@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import org.w3c.dom.Text
 
@@ -11,7 +12,7 @@ const val TAG: String ="MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var playerName:Text
+    private lateinit var playerName:EditText
     private lateinit var startButton:Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
