@@ -1,10 +1,13 @@
 package com.example.quizapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,6 +24,15 @@ class Question : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    //
+    private lateinit var questions: TextView
+    //radioButtons
+    private lateinit var answer1:RadioButton
+    private lateinit var answer2:RadioButton
+    private lateinit var answer3:RadioButton
+    private lateinit var answer4:RadioButton
+    //
+    private lateinit var nextBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +47,26 @@ class Question : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question, container, false)
+        val view = inflater.inflate(R.layout.fragment_question, container, false)
+        view?.apply {
+            initializeView(this)
+            registerListeners()
+        }
+        return view
     }
-
+    private fun initializeView(view: View){
+        questions = view.findViewById(R.id.questions)
+        answer1=view.findViewById(R.id.answer1)
+        answer2=view.findViewById(R.id.answer2)
+        answer3=view.findViewById(R.id.answer3)
+        answer4=view.findViewById(R.id.answer4)
+        nextBtn = view.findViewById(R.id.nextBtn)
+    }
+    private fun registerListeners(){
+        nextBtn.setOnClickListener(){
+            findNavController().navigate(R.id.action_question_to_end2)
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

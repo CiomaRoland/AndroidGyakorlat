@@ -56,7 +56,6 @@ class Start : Fragment() {
             initializeView(this)
             registerListeners()
         }
-
         return view
     }
 
