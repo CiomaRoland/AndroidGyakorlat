@@ -9,7 +9,14 @@ import java.io.File
 class QuizViewModel : ViewModel() {
     private val fileName="question.txt"
     private val questionList = arrayListOf<Question>()
+    private var currentQuestionNum: Int = 0
+    private var playerName: String? = null
+    private var correctAnswer = 0
+    private var highScore = 0
 
+    init {
+        loadQuestions()
+    }
 
     private fun loadQuestions() {
         val questionAndAnswer = File(fileName).readLines()
@@ -19,5 +26,11 @@ class QuizViewModel : ViewModel() {
             val question = Question(text,answers)
             questionList.add(question)
         }
+        questionList.shuffle()
+    }
+    public fun getQuestion():Question{
+        val question = questionList[currentQuestionNum]
+        ++currentQuestionNum
+        return question
     }
 }

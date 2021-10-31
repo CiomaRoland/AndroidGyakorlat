@@ -1,5 +1,6 @@
 package com.example.quizapp.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,8 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.share.QuizViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +38,10 @@ class Question : Fragment() {
     //
     private lateinit var nextBtn: Button
 
+    private val quizViewModel: QuizViewModel by activityViewModels()
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -51,6 +59,8 @@ class Question : Fragment() {
         view?.apply {
             initializeView(this)
             registerListeners()
+            questionSet()
+            answer1.text="alma"
         }
         return view
     }
@@ -64,8 +74,17 @@ class Question : Fragment() {
     }
     private fun registerListeners(){
         nextBtn.setOnClickListener(){
-            findNavController().navigate(R.id.action_question_to_end2)
+            //findNavController().navigate(R.id.action_question_to_end2)
+
+            val _question = quizViewModel.getQuestion()
+            questions.text=_question.text
         }
+    }
+    private fun questionSet(){
+        val _question = quizViewModel.getQuestion()
+        questions.text=_question.text
+        val answ = _question.answers[0]
+
     }
     companion object {
         /**
