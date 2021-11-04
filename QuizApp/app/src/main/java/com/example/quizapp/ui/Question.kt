@@ -60,7 +60,6 @@ class Question : Fragment() {
             initializeView(this)
             registerListeners()
             questionSet()
-            answer1.text="alma"
         }
         return view
     }

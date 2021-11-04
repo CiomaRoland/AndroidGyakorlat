@@ -6,15 +6,23 @@
     app:startDestination="@id/start2">
 
     <fragment
-        android:id="@+id/home"
+        android:id="@+id/home2"
         android:name="com.example.quizapp.ui.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home_to_start"
+            android:id="@+id/action_home2_to_start2"
             app:destination="@id/start2" />
+        <action
+            android:id="@+id/action_home2_to_questionAdd"
+            app:destination="@id/questionAdd" />
+        <action
+            android:id="@+id/action_home2_to_questionList"
+            app:destination="@id/questionList" />
+        <action
+            android:id="@+id/action_home2_self"
+            app:destination="@id/home2" />
     </fragment>
-
     <fragment
         android:id="@+id/start2"
         android:name="com.example.quizapp.ui.Start"
@@ -44,5 +52,36 @@
         <action
             android:id="@+id/action_end2_to_start2"
             app:destination="@id/start2" />
+        <action
+            android:id="@+id/action_end2_to_home2"
+            app:destination="@id/home2" />
     </fragment>
+    <fragment
+        android:id="@+id/questionAdd"
+        android:name="com.example.quizapp.ui.QuestionAdd"
+        android:label="fragment_question_add"
+        tools:layout="@layout/fragment_question_add" >
+        <action
+            android:id="@+id/action_questionAdd_self"
+            app:destination="@id/questionAdd" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionList"
+        android:name="com.example.quizapp.ui.QuestionList"
+        android:label="fragment_question_list"
+        tools:layout="@layout/fragment_question_list" >
+        <action
+            android:id="@+id/action_questionList_to_questionDetail2"
+            app:destination="@id/questionDetail2" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionDetail2"
+        android:name="com.example.quizapp.ui.QuestionDetail"
+        android:label="fragment_question_detail"
+        tools:layout="@layout/fragment_question_detail" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.example.quizapp.ui.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
