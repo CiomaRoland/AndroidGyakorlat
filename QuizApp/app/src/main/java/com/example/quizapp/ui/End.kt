@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.share.QuizViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,11 @@ class End : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var quizResultNumber: TextView
+    private lateinit var tryAgainBtn: Button
+
+    private val model: QuizViewModel by activityViewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +45,13 @@ class End : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_end, container, false)
+        val view = inflater.inflate(R.layout.fragment_end, container, false)
+        view?.apply {
+            initializeView(this)
+            quizResultNumber.text="${model.getNumberOfCorrectAnswer()}/${model.getCurrenQuestionNumber()} points"
+            registerListeners()
+        }
+        return view
     }
 
     companion object {
@@ -56,5 +72,15 @@ class End : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun registerListeners(){
+        tryAgainBtn.setOnClickListener(){
+            findNavController().navigate(R.id.action_end2_to_start2)
+        }
+    }
+
+    private fun initializeView(view: View){
+        quizResultNumber = view.findViewById(R.id.quizResultNumber)
+        tryAgainBtn = view.findViewById(R.id.tryAgainBtn)
     }
 }

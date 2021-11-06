@@ -1,6 +1,7 @@
 package com.example.quizapp.ui
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,16 +31,15 @@ class Question : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     //
-    private lateinit var questions: TextView
-    //radioButtons
-    private lateinit var answer1:RadioButton
-    private lateinit var answer2:RadioButton
-    private lateinit var answer3:RadioButton
-    private lateinit var answer4:RadioButton
-    //
+    private lateinit var questionStr: TextView
+    private lateinit var radioGroupAnswers: RadioGroup
+    private lateinit var answer1: RadioButton
+    private lateinit var answer2: RadioButton
+    private lateinit var answer3: RadioButton
+    private lateinit var answer4: RadioButton
     private lateinit var nextBtn: Button
 
-    private val quizViewModel: QuizViewModel by activityViewModels()
+    private val model: QuizViewModel by activityViewModels()
 
 
 
@@ -58,33 +59,12 @@ class Question : Fragment() {
         val view = inflater.inflate(R.layout.fragment_question, container, false)
         view?.apply {
             initializeView(this)
+            setQuestionAndAnswers()
             registerListeners()
-            questionSet()
         }
         return view
     }
-    private fun initializeView(view: View){
-        questions = view.findViewById(R.id.questions)
-        answer1=view.findViewById(R.id.answer1)
-        answer2=view.findViewById(R.id.answer2)
-        answer3=view.findViewById(R.id.answer3)
-        answer4=view.findViewById(R.id.answer4)
-        nextBtn = view.findViewById(R.id.nextBtn)
-    }
-    private fun registerListeners(){
-        nextBtn.setOnClickListener(){
-            //findNavController().navigate(R.id.action_question_to_end2)
 
-            val _question = quizViewModel.getQuestion()
-            questions.text=_question.text
-        }
-    }
-    private fun questionSet(){
-        val _question = quizViewModel.getQuestion()
-        questions.text=_question.text
-        val answ = _question.answers[0]
-
-    }
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -103,5 +83,72 @@ class Question : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun registerListeners(){
+        answer1.setOnClickListener{
+            nextBtn.isEnabled=true
+        }
+        answer2.setOnClickListener{
+            nextBtn.isEnabled=true
+        }
+        answer3.setOnClickListener{
+            nextBtn.isEnabled=true
+        }
+        answer4.setOnClickListener{
+            nextBtn.isEnabled=true
+        }
+        nextBtn.setOnClickListener(){
+            if(answer1.isChecked && model.getCurrentQuestion().answers[0]==answer1.text){
+                model.incNumberOfCorrectQuestion()
+            }
+            if(answer2.isChecked && model.getCurrentQuestion().answers[0]==answer2.text){
+                model.incNumberOfCorrectQuestion()
+            }
+            if(answer3.isChecked && model.getCurrentQuestion().answers[0]==answer3.text){
+                model.incNumberOfCorrectQuestion()
+            }
+            if(answer4.isChecked && model.getCurrentQuestion().answers[0]==answer4.text){
+                model.incNumberOfCorrectQuestion()
+            }
+            model.incCurrentQuestionNumber()
+            if(model.getCurrenQuestionNumber()<model.questionsSize()){
+                findNavController().navigate(R.id.action_question_self)
+            }else{
+                findNavController().navigate(R.id.action_question_to_end2)
+            }
+        }
+    }
+
+    private fun initializeView(view: View){
+        questionStr = view.findViewById(R.id.questionStr)
+        radioGroupAnswers = view.findViewById(R.id.radioGroupAnswers)
+        answer1 = view.findViewById(R.id.answer1)
+        answer2 = view.findViewById(R.id.answer2)
+        answer3 = view.findViewById(R.id.answer3)
+        answer4 = view.findViewById(R.id.answer4)
+        nextBtn = view.findViewById(R.id.nextBtn)
+    }
+    private fun setQuestionAndAnswers(){
+        val question = model.getCurrentQuestion()
+        questionStr.text=question.text
+        val answers = mutableListOf<String>()
+        for (i in 0..3){
+            answers.add(question.answers[i])
+        }
+        answers.shuffle()
+        answer1.text=answers[0]
+        answer2.text=answers[1]
+        answer3.text=answers[2]
+        answer4.text=answers[3]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 }

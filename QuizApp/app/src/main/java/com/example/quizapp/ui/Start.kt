@@ -14,9 +14,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.DisplayName
 import com.example.quizapp.R
+import com.example.quizapp.share.QuizViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,9 +37,9 @@ class Start : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var playerName: EditText
     private lateinit var startButton: Button
-    private lateinit var chooseContact: Button
+    private lateinit var playerNameInput: EditText
+    private val model: QuizViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,10 @@ class Start : Fragment() {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
         view?.apply {
             initializeView(this)
+            playerNameInput.setText(model.getPlayerName())
+            if (playerNameInput.text.toString() == "") {
+                startButton.isEnabled = false
+            }
             registerListeners()
         }
         return view
@@ -78,41 +85,24 @@ class Start : Fragment() {
                 }
             }
     }
-    private fun registerListeners(){
-        startButton.setOnClickListener(){
-            Toast.makeText(activity,"Get started", Toast.LENGTH_SHORT).show()
-            Log.i(TAG,playerName.text.toString())
+
+    private fun registerListeners() {
+        startButton.setOnClickListener() {
+            model.setPlayerName(playerNameInput.text.toString())
+            model.resetQuestions()
             findNavController().navigate(R.id.action_start2_to_question)
+        }
+        playerNameInput.addTextChangedListener {
+            if (playerNameInput.text.toString() != "") {
+                startButton.isEnabled = true
+            } else {
+                startButton.isEnabled = false
+            }
         }
     }
 
-    private fun initializeView(view: View){
-        playerName = view.findViewById(R.id.playerNameInput)
+    private fun initializeView(view: View) {
         startButton = view.findViewById(R.id.startButton)
-        chooseContact = view.findViewById(R.id.chooseContact)
-    }
-    override fun onStart() {
-        super.onStart()
-        Log.i(TAG,"onsStart()")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG,"onResume()")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG,"onPause()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i(TAG,"onStop()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG,"onDestroy()")
+        playerNameInput = view.findViewById(R.id.playerNameInput)
     }
 }

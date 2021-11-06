@@ -1,36 +1,70 @@
 package com.example.quizapp.share
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.example.quizapp.R
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 import com.example.quizapp.models.Question
-import java.io.File
 
-class QuizViewModel : ViewModel() {
-    private val fileName="question.txt"
-    private val questionList = arrayListOf<Question>()
-    private var currentQuestionNum: Int = 0
-    private var playerName: String? = null
-    private var correctAnswer = 0
+class QuizViewModel(application: Application): AndroidViewModel(application) {
+
+    private var playerName : String? =null
+    private var currenQuestionNumber = 0
+    private var questions: ArrayList<Question> = arrayListOf()
+    private var numberOfCorrectQuestion = 0
     private var highScore = 0
+
+    private val context = getApplication<Application>().applicationContext
 
     init {
         loadQuestions()
     }
-
-    private fun loadQuestions() {
-        val questionAndAnswer = File(fileName).readLines()
-        for(i in 0..questionAndAnswer.size-1 step 5){
-            val text = questionAndAnswer[i]
-            val answers = listOf<String>(questionAndAnswer[i+1],questionAndAnswer[i+2],questionAndAnswer[i+3],questionAndAnswer[i+4])
-            val question = Question(text,answers)
-            questionList.add(question)
-        }
-        questionList.shuffle()
+    fun setPlayerName(name: String){
+        playerName=name
     }
-    public fun getQuestion():Question{
-        val question = questionList[currentQuestionNum]
-        ++currentQuestionNum
-        return question
+    fun getPlayerName():String?{
+        return playerName
+    }
+    private fun loadQuestions(){
+        val isReader: InputStream = context.resources.openRawResource(R.raw.questions)
+        val reader = BufferedReader(InputStreamReader(isReader))
+        val lines = reader.readLines()
+        for (i in 0..lines.size-2 step 5){
+            questions.add(Question(lines[i], mutableListOf(lines[i+1],lines[i+2],lines[i+3],lines[i+4])))
+        }
+    }
+    fun getHighScore():Int{
+        return highScore
+    }
+    fun resetQuestions(){
+        currenQuestionNumber=0
+        numberOfCorrectQuestion=0
+        questions.shuffle()
+    }
+    fun getCurrentQuestion():Question{
+        return questions[currenQuestionNumber]
+    }
+    fun questionsSize():Int{
+        return questions.size
+    }
+    fun getNumberOfCorrectAnswer():Int{
+        return numberOfCorrectQuestion
+    }
+    fun getCurrenQuestionNumber():Int{
+        return currenQuestionNumber
+    }
+    fun incCurrentQuestionNumber(){
+        ++currenQuestionNumber
+    }
+    fun incNumberOfCorrectQuestion(){
+        ++numberOfCorrectQuestion
+        if(numberOfCorrectQuestion>highScore){
+            highScore=numberOfCorrectQuestion
+        }
+    }
+    fun addNewQuestion(question: Question){
+        questions.add(question)
     }
 }

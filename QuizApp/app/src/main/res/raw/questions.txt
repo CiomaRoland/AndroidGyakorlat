@@ -1,0 +1,15 @@
+Melyik nem szin?
+alma
+kek
+zold
+barna
+Melyik ferfi nev?
+Attila
+Laura
+Kinga
+Tunde
+Mennyi 1+2?
+3
+4
+5
+6
