@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
 import com.example.quizapp.share.QuizAdapter
 import com.example.quizapp.share.QuizViewModel
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +31,8 @@ class QuestionList : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var detail: TextView
+    private lateinit var delete: TextView
     private val model: QuizViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
 
@@ -44,9 +50,7 @@ class QuestionList : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_question_list, container, false)
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.adapter= QuizAdapter(model.getQuestionList())
-        recyclerView.layoutManager= LinearLayoutManager(context)
+        initializeView(view)
         return view
     }
 
@@ -70,6 +74,16 @@ class QuestionList : Fragment() {
             }
     }
     private fun initializeView(view: View) {
-
+        recyclerView = view.findViewById(R.id.recycler_view)
+        //delete = view.findViewById(R.id.delete)
+        //detail = view.findViewById(R.id.details)
+        recyclerView.adapter= QuizAdapter(model.getQuestionList())
+        recyclerView.layoutManager= LinearLayoutManager(context)
+        //recyclerView.setHasFixedSize(true)
+    }
+    private fun registerListeners() {
+        detail.setOnClickListener {
+            findNavController().navigate(R.id.action_questionList_to_questionDetail2)
+        }
     }
 }
