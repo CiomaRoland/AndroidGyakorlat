@@ -67,4 +67,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     fun addNewQuestion(question: Question){
         questions.add(question)
     }
+    fun getQuestionList():ArrayList<Question>{
+        return questions
+    }
 }

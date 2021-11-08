@@ -1,7 +1,9 @@
 package com.example.quizapp.ui
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
 import com.example.quizapp.share.QuizViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +64,7 @@ class Question : Fragment() {
             initializeView(this)
             setQuestionAndAnswers()
             registerListeners()
+
         }
         return view
     }
@@ -146,9 +150,20 @@ class Question : Fragment() {
         super.onAttach(context)
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
+                showDialog(context)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+    fun showDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Exit")
+        builder.setMessage("Are you sure you want to end this quiz?")
+        builder.setPositiveButton("Yes",{ dialogInterface: DialogInterface, i: Int ->
+            findNavController().navigate(R.id.action_question_to_end2)
+        })
+        builder.setNegativeButton("No",{ dialogInterface: DialogInterface, i: Int -> })
+        val dialog = builder.create()
+        dialog.show()
     }
 }
