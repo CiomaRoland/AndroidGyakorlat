@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,13 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [QuestionList.newInstance] factory method to
  * create an instance of this fragment.
  */
-class QuestionList : Fragment() {
+class QuestionList : Fragment(), QuizAdapter.onItemDetailClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var detail: TextView
-    private lateinit var delete: TextView
     private val model: QuizViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
 
@@ -75,15 +74,15 @@ class QuestionList : Fragment() {
     }
     private fun initializeView(view: View) {
         recyclerView = view.findViewById(R.id.recycler_view)
-        //delete = view.findViewById(R.id.delete)
-        //detail = view.findViewById(R.id.details)
-        recyclerView.adapter= QuizAdapter(model.getQuestionList())
+        recyclerView.adapter= QuizAdapter(model.getQuestionList(),this)
         recyclerView.layoutManager= LinearLayoutManager(context)
-        //recyclerView.setHasFixedSize(true)
+
     }
-    private fun registerListeners() {
-        detail.setOnClickListener {
-            findNavController().navigate(R.id.action_questionList_to_questionDetail2)
-        }
+
+    override fun onItemClick(position: Int) {
+        var questionDetail = model.getQuestionList().get(position)
+        model.setQuestionDetail(questionDetail)
+        findNavController().navigate(R.id.action_questionList_to_questionDetail2)
     }
+
 }

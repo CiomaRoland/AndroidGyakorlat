@@ -1,6 +1,9 @@
 package com.example.quizapp
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -12,6 +15,7 @@ import androidx.navigation.Navigation
 import com.example.quizapp.share.QuizViewModel
 
 import com.google.android.material.navigation.NavigationView
+import org.jetbrains.annotations.Contract
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val navView: NavigationView = findViewById(R.id.nav_View)
         navView.setNavigationItemSelectedListener {

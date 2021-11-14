@@ -1,35 +1,100 @@
-Melyik nem szin?
-alma
-kek
-zold
-barna
-Melyik ferfi nev?
-Attila
-Laura
-Kinga
-Tunde
-Mennyi 1+2?
-3
-4
+A következő kódrészlet mit ír ki: val a=2; val b=3; print("${a+b}");
 5
-6
-Mi Romania fovarosa?
-Bukarest
-Budapest
-Roma
-Kolozsvar
-Kerdes12
-v1
-v2
-v3
-v4
-Kerdes18
-v1
-v2
-v3
-v4
-Kerdes22
-v1
-v2
-v3
-v4
+${a+b}
+2+3
+a+b
+A következő kódrészlet mit ír ki: val a="alma " + "korte"; print("$a");
+alma korte
+$a
+alma + korte
+a
+Hány metódusa lessz a következő osztálynak: class Diak(val nev: String, var atlag: Int)
+3
+1
+2
+4
+Hány adattagja lessz a következő osztálynak: class Diak(val nev: String, var atlag: Int)
+2
+1
+2
+3
+Mit ír ki a következő kódrészlet: for(i in 1 until 5){ print(i) }
+1234
+i
+12345
+1
+Mit ír ki a következő kódrészlet: val str1: String by lazy { print("Szia!") "Hello!" }; print(str1); print(str1)
+Szia!Hello!Hello!
+Szia!Hello!Szia!Hello!
+Hello!Hello!
+Szia!Hello!
+Adott a következő hiányos kódrészlet: _ class Apa; class Fiu: Apa(); Melyik kulcsszót kell beirjuk a class Apa elé, hogy az osztály származtatható legyen?
+open
+protected
+internal
+val
+Az internal kulcsszót használva a változók vagy függvények, hol lesznek láthatók, hozzáférhetők?
+Csak az adott modulon belül
+Csak az adott osztályban
+Csak az osztályban, vagy annak alosztályaiban
+Bárhonnan az alkalmazásban
+Adott a következő kódrészlet: var valtozo1="alma"; val valtozo2=12; val valtozo3=mutableListOf(1,2,3); A következő utasítások közül melyik nem hajtható végre?
+valtozo2=88;
+valtozo1="barack"
+valtozo3.add(4)
+valtozo3.remove(0)
+Ha megszeretnénk hívni az ősosztály konstruktorát, melyik kulcsszót kell használnunk?
+super
+this
+protected
+open
+Melyik 4 komponensből épülhet fel egy Android alkalmazás?
+Activity, Service, Content provider, Broadcast receiver
+Activity, Fragment, Content Provider, Broadcast receiver
+Activity, Fragment, Content Provider, Intent
+ViewModel, Service, Content provider, Broadcast receiver
+Mik azok a layout fájlok?
+XML fájlok, amelyek a felhasználói felületet definiálják
+XML fájlok, amelyben a navigációs gráfot definiáljuk
+Olyan fájlok, amelyekben osztályokat definiálunk
+XML fájlok, amelyekben egyszerű értékeket definiálunk, például szín, szöveg, szám
+A következő metódusok közül, melyik nem tartozik az Activity életciklusához?
+onExit
+onStart
+onResume
+onDestroy
+Mi az AndroidManifest.xml állomány?
+Az Android rendszernek szolgáltat bizonyos információkat az alkalmazásról
+XML fájl, ami a felhasználói felületet definiálja
+Olyan fájl, ami függvényeket definiál
+XML fájlok, amelyben a navigációs gráfot definiáljuk
+Mire jó az Intent?
+Alkalmazáskomponensek közötti adatcsere
+Felhasználói felület létrehozására
+Adatbázis kapcsolat létrehozására
+Képek megjelenítésére
+Az onCreate() metódus után, melyik metódus következik?
+onStart()
+onResume()
+onRestart()
+onPause()
+Minimum hány Activityt kell tartalmazzon egy Android alkalmazás?
+1
+0
+2
+3
+A 4 Android komponens közül, mi a Service?
+Olyan komponens mely a háttérben fut, például nagy időigényű műveletek végrehajtása esetén
+Egy felhasználói felülettel rendelkező képernyőt reprezentál
+Kezeli az alkalmazás megosztott adatait
+A rendszer broadcast üzeneteire reagál
+Mire alkalmas az Android Emulator?
+Egy virtuális eszköz, amin futtathatjuk az alkalmazást
+Felhasznáólói felület létrehozására alkalmas
+Adatbázis elérést bíztosít
+Nem része az Androidnak
+Melyik állományban adhatjuk meg az alkalmazásunk verziószámát?
+build.gradle
+colors.xml
+AndroidManifest.xml
+egyik sem

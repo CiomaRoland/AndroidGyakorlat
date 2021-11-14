@@ -10,11 +10,12 @@ import com.example.quizapp.models.Question
 
 class QuizViewModel(application: Application): AndroidViewModel(application) {
 
-    private var playerName : String? =null
+    private var playerName : String? ="Roland"
     private var currenQuestionNumber = 0
     private var questions: ArrayList<Question> = arrayListOf()
     private var numberOfCorrectQuestion = 0
     private var highScore = 0
+    private lateinit var questionDetail: Question
 
     private val context = getApplication<Application>().applicationContext
 
@@ -69,5 +70,11 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
     fun getQuestionList():ArrayList<Question>{
         return questions
+    }
+    fun setQuestionDetail(question: Question){
+        questionDetail=question
+    }
+    fun getQuestionDetail(): Question{
+        return questionDetail
     }
 }

@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -39,6 +40,7 @@ class Start : Fragment() {
 
     private lateinit var startButton: Button
     private lateinit var playerNameInput: EditText
+    private lateinit var chooseContact: Button
     private val model: QuizViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,10 +101,15 @@ class Start : Fragment() {
                 startButton.isEnabled = false
             }
         }
+        chooseContact.setOnClickListener{
+            val intent: Intent = Intent(Intent.ACTION_PICK,ContactsContract.Contacts.CONTENT_URI)
+            startActivityForResult(intent,28)
+        }
     }
 
     private fun initializeView(view: View) {
         startButton = view.findViewById(R.id.startButton)
         playerNameInput = view.findViewById(R.id.playerNameInput)
+        chooseContact = view.findViewById(R.id.chooseContact)
     }
 }

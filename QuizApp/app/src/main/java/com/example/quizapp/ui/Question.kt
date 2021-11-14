@@ -115,7 +115,7 @@ class Question : Fragment() {
                 model.incNumberOfCorrectQuestion()
             }
             model.incCurrentQuestionNumber()
-            if(model.getCurrenQuestionNumber()<model.questionsSize()){
+            if(model.getCurrenQuestionNumber()<model.questionsSize() && model.getCurrenQuestionNumber()<10){
                 findNavController().navigate(R.id.action_question_self)
             }else{
                 findNavController().navigate(R.id.action_question_to_end2)

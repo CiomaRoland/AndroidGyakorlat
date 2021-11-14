@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import com.example.quizapp.R
+import com.example.quizapp.share.QuizViewModel
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +28,13 @@ class QuestionDetail : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var answerText1: TextView
+    private lateinit var answerText2: TextView
+    private lateinit var answerText3: TextView
+    private lateinit var answerText4: TextView
+    private lateinit var questionDetail: TextView
+    private val model: QuizViewModel by activityViewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +48,11 @@ class QuestionDetail : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question_detail, container, false)
+        val view =  inflater.inflate(R.layout.fragment_question_detail, container, false)
+        view?.apply {
+            initializeView(this)
+        }
+        return view
     }
 
     companion object {
@@ -56,5 +73,18 @@ class QuestionDetail : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    private fun initializeView(view: View) {
+        questionDetail = view.findViewById(R.id.questionDetail)
+        answerText1 = view.findViewById(R.id.answerText1)
+        answerText2 = view.findViewById(R.id.answerText2)
+        answerText3 = view.findViewById(R.id.answerText3)
+        answerText4 = view.findViewById(R.id.answerText4)
+        val question= model.getQuestionDetail()
+        questionDetail.text=question.text
+        answerText1.text=question.answers[0]
+        answerText2.text=question.answers[1]
+        answerText3.text=question.answers[2]
+        answerText4.text=question.answers[3]
     }
 }
